@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Christian Santamaria">
+  <title>Magic 8 Ball</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Magic 8 Ball</h1>
+    <p>Ask a yes/no question and shake the Magic 8 Ball!</p>
+    <input type="text" id="question" placeholder="Type your question here...">
+    <button id="ask-button">Shake the Ball</button>
+    <p class="answer" id="answer"></p>
+    <button id="exit-button" class="hidden">Exit</button>
+  </div>
+  
+  <script>
+    // Array of Magic 8 Ball responses
+    const responses = [
+      "Yes, definitely!",
+      "No, absolutely not.",
+      "Ask again later.",
+      "It is certain.",
+      "Very doubtful.",
+      "Concentrate and ask again.",
+      "Signs point to yes.",
+      "Cannot predict now."
+    ];
+
+    // Get DOM elements
+    const questionInput = document.getElementById('question');
+    const askButton = document.getElementById('ask-button');
+    const answerDisplay = document.getElementById('answer');
+    const exitButton = document.getElementById('exit-button');
+
+    // Event listener for the "Shake the Ball" button
+    askButton.addEventListener('click', () => {
+      const question = questionInput.value.trim();
+      if (!question) {
+        answerDisplay.textContent = "Please enter a question!";
+        return;
+      }
+      
+      // Randomize the response
+      const randomIndex = Math.floor(Math.random() * responses.length);
+      const response = responses[randomIndex];
+      
+      // Display the response
+      answerDisplay.textContent = `The Magic 8 Ball says: ${response}`;
+      
+      // Clear the question input
+      questionInput.value = '';
+      
+      // Show the exit button
+      exitButton.classList.remove('hidden');
+    });
+
+    // Event listener for the "Exit" button
+    exitButton.addEventListener('click', () => {
+      answerDisplay.textContent = "Thanks for playing! Farewell!";
+      questionInput.disabled = true;
+      askButton.disabled = true;
+      exitButton.disabled = true;
+    });
+  </script>
+</body>
+</html>
